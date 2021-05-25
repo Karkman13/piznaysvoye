@@ -1,0 +1,10 @@
+.input_text_element{
+    display: flex;
+    flex-direction: row;
+    input{
+        width: 100px;
+        margin-left: 10px;
+        margin-right: 10px;
+        text-align: center;
+    }
+}

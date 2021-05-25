@@ -1,0 +1,31 @@
+.imgyarko{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    // margin: 0px;
+}
+
+// .bus_head{
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+// }
+
+.hotel_img{
+    max-width: 100%;
+    height: auto;
+    // width: 150px;
+}
+
+.link_to_about{
+    text-decoration: none;
+
+}
+
+.link_div_about{
+    a{
+        text-decoration: none;
+        color: rgb(219, 30, 30);
+    }
+}
+

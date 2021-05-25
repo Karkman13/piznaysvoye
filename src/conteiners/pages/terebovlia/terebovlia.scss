@@ -1,0 +1,39 @@
+
+.title_head{
+    div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    }
+}
+
+ul{
+    li{
+        list-style-image: url(../../../images/flag2.png);
+
+    }
+}
+
+
+body{
+    background-image: url(../../../images/background_new2.png);
+    background-size: cover;
+    // backdrop-filter: blur(2px);
+    // // backdrop-filter: contrast(60%);
+    // backdrop-filter: opacity(85%);
+}
+
+.img_content{
+    // padding: 10px;
+    max-width: 100%;
+    height: auto;
+    
+}
+
+.quest_area{
+    border-radius: 3px ;
+    // background-color: rgba($color: #ad0d0d, $alpha: 1.0);;
+    border-color: rgba($color: #d41212, $alpha: 1.0);
+    border: 1px solid #dee2e6!important;
+   
+}
