@@ -18,11 +18,10 @@ class BasiliqueSaintPaul extends Component<WordProps, WordState> {
         super(props)
         this.state = {
             word: '',
-            answer: ['Вежі', 'вежі', 'Колони', 'колони', 'Вишки', 'Вишки', 'Дах', 'дах', 'Балюстрада', 'балюстрада', 'Фронтон', 'фронтон'],
+            answer: ['вежі', 'колони', 'вишки', 'дах', 'балюстрада', 'фронтон'],
             ishidden: true
         }
         this._handleChange = this._handleChange.bind(this);
-        this._handleClick = this._handleClick.bind(this);
         this.updateData = this.updateData.bind(this);
     }
 
@@ -30,16 +29,6 @@ class BasiliqueSaintPaul extends Component<WordProps, WordState> {
         this.setState({
             word: event.target.value
         });
-    }
-
-    _handleClick(event: any) {
-        console.log(this.state.word);
-        this.state.answer.forEach(i => {
-            if (this.state.word == i)
-                console.log('fucking good')
-
-        }
-        )
     }
 
     updateData(value: boolean) {

@@ -15,7 +15,7 @@ class HigherSchoolCulture extends Component<SchoolProps, SchoolState> {
     constructor(props: SchoolProps) {
         super(props)
         this.state = {
-            answer: ['Кобзар', 'КОБЗАР', 'кобзар'],
+            answer: ['кобзар'],
             ishidden: true
         }
         this.updateData = this.updateData.bind(this);

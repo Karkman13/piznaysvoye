@@ -16,18 +16,11 @@ class AnswerWordComponent extends Component<AnswerProps, AnswerState>{
         super(props)
         this.state = {
             word: '',
-            iswrong: false,
-            ishidden: true
+            iswrong: true,
+            ishidden: false
         }
         this._handleChange = this._handleChange.bind(this);
         this._handleClick = this._handleClick.bind(this);
-        this.updateData = this.updateData.bind(this);
-    }
-
-    updateData(value: boolean){
-        console.log(this.state.ishidden);
-        this.setState({ ishidden: value });
-        console.log('is hidden value changed');
     }
 
     _handleChange(event: any) {
@@ -39,49 +32,24 @@ class AnswerWordComponent extends Component<AnswerProps, AnswerState>{
 
     _handleClick(event: any) {
         event.preventDefault();
-        console.log(this.state.word);
-        // this.props.answer.forEach(i => {
-        //     if (this.state.word == i){
-        //         console.log('fucking good');
-        //     }
-        //     else{
-        //         this.setState({
-        //             iswrong: true
-        //         })
-        //         console.log(this.state.iswrong);
-        //         console.log('не зупинилося')
-        //     }
-        // }
-        // )
 
-        // let status = this.props.answer.includes(this.state.word);
-        // console.log(status);
-        // if (!status) {
-        //     this.setState({
-        //         iswrong:true
-        //     })
-        // }
-        // else{
-        //     this.setState({
-        //         iswrong:false
-        //     })
-        //     this.props.updateData(this.state.iswrong);
-        // }
-        console.log(this.state.iswrong);
-        if (this.props.answer.includes(this.state.word)) {
+        let a = this.state.word.toLowerCase();
+        if (this.props.answer.includes(a)) {
             this.setState({
-                iswrong: false
+                iswrong: false,
+                ishidden: false
+            }, ()=> {
+                this.props.updateData(this.state.iswrong);
             })
-            console.log('state changed to false')
-            this.props.updateData(this.state.iswrong);
         }
         else {
             this.setState({
-                iswrong: true
+                iswrong: true,
+                ishidden: true
+            }, ()=> {
+                this.props.updateData(this.state.iswrong);
             })
-            console.log('state changed to true')
         }
-        console.log(this.state.iswrong);
     }
     
     render() {
@@ -91,11 +59,12 @@ class AnswerWordComponent extends Component<AnswerProps, AnswerState>{
                     <input type="text" value={this.state.word} onChange={this._handleChange} />
                     <button onClick={this._handleClick}>Click</button>
                 </div>
-                <div className='wronganswer' hidden={!this.state.iswrong}>
+                <div className='wronganswer' hidden={!this.state.ishidden}>
                     Не правильно!
                 </div>
             </div>
         );
+        
     }
 }
 

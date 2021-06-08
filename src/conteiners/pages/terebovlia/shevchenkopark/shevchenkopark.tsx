@@ -15,7 +15,7 @@ class ShevchenkoPark extends Component<ShevchenkoProps, ShevchenkoState> {
     constructor(props: ShevchenkoProps) {
         super(props)
         this.state = {
-            answer: ['Гуска', 'гуска', 'ГУСКА', 'Баба Оля'],
+            answer: ['гуска', 'баба оля'],
             ishidden: true
         }
         this.updateData = this.updateData.bind(this);

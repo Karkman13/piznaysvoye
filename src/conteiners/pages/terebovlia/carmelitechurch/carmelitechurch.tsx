@@ -17,7 +17,7 @@ class CarmeliteChurch extends Component<CarmeliteProps, CarmeliteState> {
     constructor(props: CarmeliteProps) {
         super(props)
         this.state = {
-            answer: ['4', 'Чотири', 'чотири', 'ЧОТИРИ'],
+            answer: ['4', 'чотири'],
             ishidden: true
         }
         this.updateData = this.updateData.bind(this);
