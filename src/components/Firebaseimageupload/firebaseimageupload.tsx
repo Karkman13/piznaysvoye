@@ -1,5 +1,8 @@
+import axios from 'axios';
+import firebase from 'firebase';
 import React, { Component, ChangeEvent } from 'react';
 import { storage } from '../../firebase/indexfirebase';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 interface ImgProps {
     updateData: (value: boolean) => any,
@@ -10,7 +13,8 @@ interface ImgState {
     file: File | null,
     imagePreviewUrl: string,
     isload: boolean,
-    progress: number
+    progress: number,
+    ishiddenpb: boolean
 }
 
 class FirebaseImageUpload extends Component<ImgProps, ImgState>{
@@ -20,7 +24,8 @@ class FirebaseImageUpload extends Component<ImgProps, ImgState>{
             file: null,
             imagePreviewUrl: '',
             isload: true,
-            progress: 0
+            progress: 0,
+            ishiddenpb: true
         };
         this._handleImageChange = this._handleImageChange.bind(this);
         this._handleSubmit = this._handleSubmit.bind(this);
@@ -35,49 +40,41 @@ class FirebaseImageUpload extends Component<ImgProps, ImgState>{
         reader.onloadend = () => {
             this.setState({
                 file: file,
-                imagePreviewUrl: reader.result as string
+                imagePreviewUrl: reader.result as string,
+                ishiddenpb: false
+            }, ()=>{
+                console.log(this.state.file?.name);
+                console.log(this.state.file?.type==`image`);
             });
         }
-        console.log(this.state.file?.name);
         reader.readAsDataURL(file)
     }
 
     _handleSubmit(event: React.MouseEvent) {
         event.preventDefault();
         console.log(this.state.file?.name);
-        storage.ref(`images/${this.props._path}/${this.state.file?.name}`).put(this.state.file);
-        console.log('done');
-
-        // snapshot => {
-        //     const progres =  Math.round(
-        //         (snapshot.bytesTransferred / snapshot.totalBytes ) *100
-        //     );
-        //     this.setState(
-        //         {
-        //             progress: progres
-        //         }
-        //     );
-        // }
-        // this.setState({isload:false});
-        
-        const vvoid = () =>{
+        const upload = storage.ref(`images/${this.props._path}/${this.state.file?.name}`).put(this.state.file);
+        upload.on('state_changed', (snapshot:any) => {
             this.setState({
-                isload:false
-            })
+                progress: Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
+            }, ()=>{
+                if(this.state.progress==100){
+            console.log('load finished');
+            console.log(this.state.isload);
+            this.props.updateData(!this.state.isload);
         }
-
-        console.log(this.state.isload);
-        this.props.updateData(this.state.isload)
-        this.props.updateData(false);
+            })
+            console.log('Upload is ' + this.state.progress + '% done');
+        })
     }
 
     render() {
 
         return (
             <div>
-                {/* <progress value={this.state.progress} max='100' /> */}
                 <input accept='image/*' type="file" onChange={this._handleImageChange} />
                 <button type="submit" onClick={this._handleSubmit}>Upload Image</button>
+                <ProgressBar bgcolor='#ef6c00' completed={this.state.progress} ishidden={this.state.ishiddenpb}/>
             </div>
         )
     }
